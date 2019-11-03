@@ -1,5 +1,17 @@
 # Contributing to rust-rocksdb
-Thank you for taking an interest in the project, and contributing to it - it's appreciated! There are several ways you can contribute:
+Thank you for taking an interest in the project, and contributing to it - it's appreciated! 
+
+## Design Guidelines
+
+When submitting pull requests or recommending API changes as part of issues, please keep the following in mind:
+
+- The `librocksdb-sys` crate is intended to be a mechanical 1-to-1 mapping with the official RocksDB C API.  Even this API mirrors the design of the C++ API, following the naming convention `rocksdb_{class}_{method}`.
+
+- The main crate, `rocksdb`, is intended to be a 1-to-1 mapping with the official RocksDB C++ object model. Classes that exist in the C++ API should generally have an equivalently named `struct` in the Rust library; the same should be said for methods on those classes. Generally, identically named methods should be found on the `struct`s, either through direct `impl`s or through `trait`s implemented on the `struct`s.  Calling a Rust method named identically to the underlying C++ API should invoke that C++ method.  Additional `trait`s and methods can be implemented to provide better ergonomics and support Rust idioms, but as a general rule the "shape" of a `struct` exposing the functionality of a C++ class should be the same as the C++ class.
+
+## How to Contribute
+
+There are several ways you can contribute:
 - [Bug Reports](#bug-reports)
 - [Feature Requests](#feature-requests)
 - [Documentation](#documentation)
